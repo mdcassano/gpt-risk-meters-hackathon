@@ -14,7 +14,7 @@ with open("user.prompt") as f:
     user_prompt = f.read()
 
 response = client.chat.completions.create(
-    model="hack-gpt-35", # model = "deployment_name".
+    model="hack-gpt-4",
     messages=[
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": user_prompt}
