@@ -1,4 +1,5 @@
 import os
+import sys
 from openai import AzureOpenAI
 
 client = AzureOpenAI(
@@ -7,10 +8,14 @@ client = AzureOpenAI(
   api_version="2023-05-15"
 )
 
-with open("system.prompt") as f:
+prompt_prefix = ""
+if len(sys.argv) > 1:
+    prompt_prefix = sys.argv[1] + "-"
+
+with open("%ssystem.prompt" % (prompt_prefix)) as f:
     system_prompt = f.read()
 
-with open("user.prompt") as f:
+with open("%suser.prompt" % (prompt_prefix)) as f:
     user_prompt = f.read()
 
 response = client.chat.completions.create(
