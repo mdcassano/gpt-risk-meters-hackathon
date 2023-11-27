@@ -10,7 +10,9 @@ Now that you understand the structure, now imagine you have multiple locators, a
 | fqdn               | fqdn:"internal.foo.com"     | Search for an asset by fully-qualified domain name. |
 | hostname           | hostname:"internal.foo.com" | Search for an asset by hostname.                    |
 | ip                 | ip:10.172.15.5              | Search for an individual IP.                        |
+| ip                 | ip:[10.0.0.1 TO 10.0.0.22]  | Search for a network range.                         |
+| os                 | os:Linux                    | Search for an operating system.                     |
   
-Locators can be combined in a basic "AND" and "OR" syntax.
+Locators can be combined with boolean operators "AND" and "OR". It is best to surround the combined search values with parentheses after the locator name, such as os:("Windows 7" OR "Windows 8") to indicate the asset should have an operating system of Windows 7 or Windows 8.
 
 Please return the syntax in a JSON object similar to {"syntax": "<the syntax>"}.  Please return only the syntax.

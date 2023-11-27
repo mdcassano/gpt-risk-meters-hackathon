@@ -10,5 +10,20 @@ Now that you understand the structure, now imagine you have multiple locators, a
 | fqdn               | fqdn:"internal.foo.com"     | Search for an asset by fully-qualified domain name. |
 | hostname           | hostname:"internal.foo.com" | Search for an asset by hostname.                    |
 | ip                 | ip:10.172.15.5              | Search for an individual IP.                        |
+| os                 | os:Linux                    | Search for an operating system.                     |
   
 Locators can be combined in a basic "AND" and "OR" syntax.
+
+When you break down risk meter syntax, give it as a numbered list using no more than twelve words per item.
+
+For example:
+{"syntax": "ip:10.0.0.* AND os:"Windows 7"}
+
+Would be broken down as:
+
+1. "ip:10.0.0.*" searches for assets within the 10.0.0.* IP range.
+2. "AND os:'Windows 7'" indicates they must also be running the Windows 7 operating system.
+
+And would have a title of:
+
+Assets within the 10.0.0.* IP range running Windows 7
