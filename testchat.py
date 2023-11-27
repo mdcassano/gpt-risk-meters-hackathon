@@ -4,8 +4,8 @@ from openai import AzureOpenAI
 
 def load_prompts_from_file_system():
     prompt_prefix = ""
-    if len(sys.argv) > 1:
-        prompt_prefix = sys.argv[1] + "-"
+    # if len(sys.argv) > 1:
+    #     prompt_prefix = sys.argv[1] + "-"
     
     with open("base-locator-description.prompt") as f:
         base_prompt = f.read()
@@ -25,14 +25,17 @@ client = AzureOpenAI(
   api_version="2023-05-15" # TODO: is this a good date?
 )
 
-system_prompt, user_prompt = load_prompts_from_file_system()
 
-response = client.chat.completions.create(
-    model="hack-gpt-4",
-    messages=[
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_prompt}
-    ]
-)
+if __name__ == "__main__":
 
-print(response.choices[0].message.content)
+    system_prompt, user_prompt = load_prompts_from_file_system()
+
+    response = client.chat.completions.create(
+        model="hack-gpt-4",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ]
+    )
+
+    print(response.choices[0].message.content)
