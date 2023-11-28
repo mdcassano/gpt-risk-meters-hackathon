@@ -2,11 +2,7 @@ import os
 import sys
 from openai import AzureOpenAI
 
-def load_prompts_from_file_system():
-    prompt_prefix = ""
-    # if len(sys.argv) > 1:
-    #     prompt_prefix = sys.argv[1] + "-"
-    
+def load_system_prompt(prompt_prefix=""):
     with open("base-locator-description.prompt") as f:
         base_prompt = f.read()
     
@@ -15,9 +11,12 @@ def load_prompts_from_file_system():
     
     system_prompt = base_prompt + "\n\n" + system_prompt
     
+    return system_prompt
+
+def load_user_prompt(prompt_prefix=""):
     with open("%suser.prompt" % (prompt_prefix)) as f:
         user_prompt = f.read()
-    return system_prompt, user_prompt
+    return user_prompt
 
 client = AzureOpenAI(
   azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT"), 
@@ -25,10 +24,8 @@ client = AzureOpenAI(
   api_version="2023-05-15" # TODO: is this a good date?
 )
 
-
-if __name__ == "__main__":
-
-    system_prompt, user_prompt = load_prompts_from_file_system()
+def get_chat_response(user_prompt=None, prefix=""):
+    system_prompt = load_system_prompt(prefix)
 
     response = client.chat.completions.create(
         model="hack-gpt-4",
@@ -37,5 +34,12 @@ if __name__ == "__main__":
             {"role": "user", "content": user_prompt}
         ]
     )
+    return response.choices[0].message.content
 
-    print(response.choices[0].message.content)
+
+if __name__ == "__main__":
+    prompt_prefix = ""
+    if len(sys.argv) > 1:
+        prompt_prefix = sys.argv[1] + "-" 
+
+    print(get_chat_response(load_user_prompt(prompt_prefix)))
