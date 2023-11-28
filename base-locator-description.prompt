@@ -12,3 +12,5 @@ Now that you understand the structure, now imagine you have multiple locators, a
 | ip                 | ip:10.172.15.5              | Search for an individual IP.                        |
   
 Locators can be combined in a basic "AND" and "OR" syntax.
+Syntax for multiple locators should not be using any brackets.
+The IP range syntax must use "TO" in between and be within square brackets.

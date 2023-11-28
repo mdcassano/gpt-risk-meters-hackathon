@@ -1,1 +1,3 @@
-Please return the syntax in a JSON object similar to {"syntax": "<the syntax>"}.  Please return only the syntax.
+Please return the syntax in a JSON object similar to {"syntax": "<the syntax>"}.
+If there is an error, return a JSON object similar to {"error": "<the error>"}.
+Please return only JSON.
