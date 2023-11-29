@@ -1,26 +1,16 @@
-I am describing a system that builds Risk Meters.  Risk Meters can be thought of as saved searches of assets.  Assets have locators.  Locators are attributes of assets that users use to identify an asset.  Thus, a risk meter is a set of assets and the risk meter is defined by a syntax that searches through all asset’s locators. 
+I am describing a system that builds Risk Meters.  Risk Meters can be thought of as saved searches of assets.  Assets have locators.  Locators are attributes of assets that users use to identify an asset.  Thus, a risk meter is a set of assets and the risk meter is defined by a query syntax that searches through all asset’s locators. 
 
-For instance, one locator is named “application” whose value is a string.  If I use the syntax “application:’Test App’” then all assets with their application value set to ‘Test App’ will be returned.  And if I save that syntax as a Risk Meter then that Risk Meter will always return the assets who have a locator named “application” where the value is ‘Test App’.
+For instance, one locator is named “application” whose value is a string.  If I use the query syntax “application:’Test App’” then all assets with their application value set to ‘Test App’ will be returned.  And if I save that syntax as a Risk Meter then that Risk Meter will always return the assets who have a locator named “application” where the value is ‘Test App’.
 
 # Syntax rules
-That syntax conforms to Apache Lucene Query Parser Syntax rules. A query is broken up into terms and operators. There are two types of terms: Single Terms and Phrases.  A Single Term is a single word such as "test" or "hello". Since a single word does not contain spaces, it does not need to be surrounded by quotes.  A Phrase is a group of words surrounded by double quotes such as "hello dolly". Therefore, if I provide a quoted term that is one word like `Application called "Test"`, you do not need to wrap it in quotes. The correct syntax would be `application:Test`. However, if I provide a multi-word application, you would need to use double quotes like `application:"Test app"`. Do not use single quotes.
+That syntax conforms to Apache Lucene Query Parser Syntax rules as can be found at https://lucene.apache.org/core/2_9_4/queryparsersyntax.html. A query is broken up into terms and operators. A term is comprised of a locator before a colon and a value after the colon. An example of a basic query syntax using two terms joined with an AND operator is `locator:value AND another_locator:"multi-word value"`.
 
-Boolean operators allow terms to be combined through logic operators. Lucene supports AND, "+", OR, NOT and "-" as Boolean operators(Note: Boolean operators must be ALL CAPS).
+Values can be a Single Term or a Phrase.  A Single Term is a word or words containing no whitespace such as test, TestApp, or main.js. Since a Single Term does not contain spaces, it does not need to be surrounded by quotes.  A Phrase is a group of words surrounded by double quotes such as "hello dolly". Therefore, if I provide a description that includes a Single Term like `A file called "test.js"`, you do not need to wrap it in quotes for the query syntax. The correct syntax would be `file:test.js`. However, if I provide a Phrase in my description, you would need to use double quotes like `application:"Test app"`. Do not use single quotes to surround a Phrase.
+
+Boolean operators allow terms to be combined through logic operators. Lucene supports AND, "+", OR, NOT and "-" as Boolean operators. (Note: Boolean operators must be ALL CAPS).
 
 The OR operator is the default conjunction operator. OR operator can not be used with different locators. This means that if there is no Boolean operator between two terms, the OR operator is used. The OR operator links two terms and finds a matching document if either of the terms exist in a document. This is equivalent to a union using sets. The symbol || can be used in place of the word OR.
 
-# Examples
-Now that you understand the structure, now imagine you have multiple locators, all from a set of pre-defined names.  I will provide all of the supported locators in the markdown table below:
-
-|    Locator Name    |           Example           | Description                                         |
-|:------------------:|:---------------------------:|-----------------------------------------------------|
-| asset_id           | asset_id:12345              | Search for an asset by ID.                          |
-| file               | file:project/dev/file.js    | Search for an asset by file locator.                |
-| application        | application:TestApp         | Search for an asset by application locator value.   |
-| fqdn               | fqdn:internal.foo.com       | Search for an asset by fully-qualified domain name. |
-| hostname           | hostname:internal.foo.com   | Search for an asset by hostname.                    |
-| ip                 | ip:10.172.15.5              | Search for an individual IP.                        |
-  
 Syntax for multiple locators should not be using any brackets. Multiple locators can not be used in an OR operator.
 For example, getting all assets with application as "Foo" or file being "a.txt" is not allowed.
 Another example that would be a valid search will be trying to find application being either "Foo" or "Bar".
@@ -29,3 +19,32 @@ The IP range syntax must use "TO" in between and be within square brackets.
 
 The OR operator should use brackets to combine terms and abstract out the locator itself.
 For example, if you are searching for hostname locator being "A.com" or "B.com", the returned query should be hostname:(A.com OR B.com), the query hostname:A.com OR hostname:B.com is not a valid query.
+
+# Supported locators
+Now that you understand the structure, now imagine you have multiple locators, all from a set of pre-defined names.  I will provide all of the supported locators in the markdown table below:
+
+|    Locator Name    |           Example             | Description                                         |
+|:------------------:|:-----------------------------:|-----------------------------------------------------|
+| asset_id           | asset_id:12345                | Search for an asset by ID.                          |
+| file               | file:project/dev/file.js      | Search for an asset by file locator.                |
+| application        | application:TestApp           | Search for an asset by application locator value.   |
+| fqdn               | fqdn:internal.foo.com         | Search for an asset by fully-qualified domain name. |
+| hostname           | hostname:internal.foo.com     | Search for an asset by hostname.                    |
+| ip                 | ip:10.172.15.5                | Search for an individual IP.                        |
+| mac_address        | mac_address:4a:03:4c:73:12:96 | Search for an asset by physical MAC address.        |
+| netbios            | netbios:INTERNAL              | Search for an asset by netbios name.                |
+| os                 | os:Linux                      | Search for an asset by operating system.            |
+
+# Examples
+
+Below are a few examples of queries and their corresponding descriptions:
+
+query: os:linux
+description: Assets running a Linux operating system.
+
+query: os:"Windows 8" AND priority:>5
+description: Assets running Windows 8 with a priority greater than 5.
+
+query: os:("Red Hat" OR linux) tag:server
+description: Assets running Red Hat or Linux or tagged "server".
+

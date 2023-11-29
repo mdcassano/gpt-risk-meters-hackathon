@@ -92,13 +92,15 @@ class DescribeQueryTest(pytest.Item):
         if isinstance(excinfo.value, AssertionError):
             return "\n".join(
                 [
-                    "Failed to round-trip the generated description:",
-                    "   -> query input: {0!r}".format(self.query),
-                    "     -> description: {0!r}".format(self.generated_description),
-                    "       -> query output: {0!r}".format(self.round_trip_query),
-                    "   spec failed: {0!r}".format(excinfo.value),
+                    f"Failed to round-trip the generated description:",
+                    f"   -> query input: {self.query!r}",
+                    f"     -> description: {self.generated_description!r}",
+                    f"       -> query output: {self.round_trip_query!r}",
+                    f"   spec failed: {excinfo.value}",
                 ]
             )
+        else:
+            return super().repr_failure(excinfo)
 
     def reportinfo(self):
-        return self.path, 0, self.name
+        return self.path, 0, self.name + " (reverse)"
