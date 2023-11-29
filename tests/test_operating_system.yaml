@@ -1,0 +1,6 @@
+- name: basic OS
+  query: os:Windows
+  description: The operating system is Windows.
+- name: OS with multiple words
+  query: os:"Windows Server"
+  description: Operating system is Windows Server

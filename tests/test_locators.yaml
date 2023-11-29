@@ -1,6 +1,21 @@
 - name: asset_id locator
   query: asset_id:12345
-  description: Asset with ID 12345
+  description: Asset with ID 12345.
 - name: application locator
   query: application:TestApp
-  description: Application called "TestApp"
+  description: Application called TestApp.
+- name: file locator
+  query: file:project/dev/file.js
+  description: Asset with a file locator of project/dev/file.js.
+- name: fqdn locator
+  query: fqdn:vpn.internal.example.co.uk
+  description: Asset with a fully-qualified domain of vpn.internal.example.co.uk
+- name: hostname locator
+  query: hostname:JAGARBER-M-49W2
+  description: Asset with a hostname of JAGARBER-M-49W2
+- name: MAC address
+  query: mac_address:00:50:56:9a:00:00
+  description: Asset with a MAC address of 00:50:56:9a:00:00
+- name: netbios locator
+  query: netbios:INTERNAL
+  description: Asset with a NetBIOS name of INTERNAL

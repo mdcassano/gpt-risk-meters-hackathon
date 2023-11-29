@@ -1,6 +1,9 @@
-- name: single term
+- name: single term, quoted in description
   query: application:foo
   description: An application of "foo"
+- name: single term, not quoted
+  query: application:TestApp
+  description: An application of TestApp
 - name: phrase
   query: application:"foo bar"
   description: An application of "foo bar"
