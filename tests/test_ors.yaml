@@ -1,0 +1,9 @@
+- name: basic OR
+  query: application:(abc OR xyz)
+  description: Application is abc or xyz
+- name: complex OR
+  query: hostname:(a.com OR c.com) AND fqdn:d.com
+  description: hostname is a.com or c.com and fully qualified domain name is d.com
+- name: invalid OR
+  error: OR operator can not be used with different locators
+  description: hostname is a.com or fully qualified domain name is d.com

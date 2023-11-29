@@ -4,3 +4,6 @@
 - name: phrase
   query: application:"foo bar"
   description: An application of "foo bar"
+- name: wildcard
+  query: application:foo*
+  description: An application starting with "foo"
