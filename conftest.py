@@ -12,8 +12,11 @@ class YamlFile(pytest.File):
         import yaml  # only import pyyaml if necessary
         raw = yaml.safe_load(self.path.open())
         for spec in raw:
-            yield GenerateQueryTest.from_parent(self, name=spec['name'], description=spec['description'], query=spec['query'])
-            yield DescribeQueryTest.from_parent(self, name=spec['name'], description=spec['description'], query=spec['query'])
+            if 'error' not in spec:
+                yield GenerateQueryTest.from_parent(self, name=spec['name'], description=spec['description'], query=spec['query'])
+                yield DescribeQueryTest.from_parent(self, name=spec['name'], description=spec['description'], query=spec['query'])
+            else:
+                yield ErrorQueryTest.from_parent(self, name=spec['name'], description=spec['description'], error=spec['error'])
 
 class GenerateQueryTest(pytest.Item):
     def __init__(self, name, parent, description, query):
@@ -24,6 +27,22 @@ class GenerateQueryTest(pytest.Item):
 
     def runtest(self):
         assert self.query == Chat(self.description, prefix="").syntax_output()
+
+    def reportinfo(self):
+        return self.path, 0, self.name
+
+class ErrorQueryTest(pytest.Item):
+    def __init__(self, name, parent, description, error):
+        super().__init__(name, parent)
+        self.name = name
+        self.description = description
+        self.error = error
+
+    def runtest(self):
+        try:
+            Chat(self.description, prefix="").syntax_output()
+        except Exception as ex:
+            assert self.error in str(ex)
 
     def reportinfo(self):
         return self.path, 0, self.name

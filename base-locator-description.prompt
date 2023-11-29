@@ -22,7 +22,7 @@ Now that you understand the structure, now imagine you have multiple locators, a
 | ip                 | ip:10.172.15.5              | Search for an individual IP.                        |
   
 Syntax for multiple locators should not be using any brackets. Multiple locators can not be used in an OR operator.
-For example, getting all assets with application locator as "Foo" or file locator being "a.txt" is not allowed.
+For example, getting all assets with application as "Foo" or file being "a.txt" is not allowed.
 Another example that would be a valid search will be trying to find application being either "Foo" or "Bar".
 
 The IP range syntax must use "TO" in between and be within square brackets.
