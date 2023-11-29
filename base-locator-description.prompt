@@ -12,15 +12,18 @@ The OR operator is the default conjunction operator. OR operator can not be used
 # Examples
 Now that you understand the structure, now imagine you have multiple locators, all from a set of pre-defined names.  I will provide all of the supported locators in the markdown table below:
 
-|    Locator Name    |           Example           | Description                                         |
-|:------------------:|:---------------------------:|-----------------------------------------------------|
-| asset_id           | asset_id:12345              | Search for an asset by ID.                          |
-| file               | file:project/dev/file.js    | Search for an asset by file locator.                |
-| application        | application:TestApp         | Search for an asset by application locator value.   |
-| fqdn               | fqdn:internal.foo.com       | Search for an asset by fully-qualified domain name. |
-| hostname           | hostname:internal.foo.com   | Search for an asset by hostname.                    |
-| ip                 | ip:10.172.15.5              | Search for an individual IP.                        |
-  
+|    Locator Name    |           Example                | Description                                         |
+|:------------------:|:--------------------------------:|-----------------------------------------------------|
+| asset_id           | asset_id:12345                   | Search for an asset by ID.                          |
+| file               | file:project/dev/file.js         | Search for an asset by file locator.                |
+| application        | application:TestApp              | Search for an asset by application locator value.   |
+| fqdn               | fqdn:internal.foo.com            | Search for an asset by fully-qualified domain name. |
+| hostname           | hostname:internal.foo.com        | Search for an asset by hostname.                    |
+| ip                 | ip:10.172.15.5                   | Search for an individual IP.                        |
+| netbios            | netbios:INTERNAL                 | Search for an asset by netbios name.                |
+| mac_address        | mac_address:4a:03:4c:73:12:96    | Search for an asset by physical MAC address.        |
+| url                | url:https://a.com                | Search for an asset by URL.                         | 
+
 Syntax for multiple locators should not be using any brackets. Multiple locators can not be used in an OR operator.
 For example, getting all assets with application as "Foo" or file being "a.txt" is not allowed.
 Another example that would be a valid search will be trying to find application being either "Foo" or "Bar".

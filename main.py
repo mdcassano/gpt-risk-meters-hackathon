@@ -1,6 +1,4 @@
-import os
 import json
-from openai import AzureOpenAI
 from fastapi import FastAPI
 from chat import Chat
 from fastapi.middleware.cors import CORSMiddleware

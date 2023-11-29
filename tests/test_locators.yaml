@@ -4,3 +4,18 @@
 - name: application locator
   query: application:TestApp
   description: Application called "TestApp"
+- name: hostname locator
+  query: hostname:a.com
+  description: Hostname is a.com
+- name: mac address locator
+  query: mac_address:00-B0-D0-63-C2-26
+  description: MAC address is 00-B0-D0-63-C2-26
+- name: url locator
+  query: url:http://a.com
+  description: URL is http://a.com
+- name: file locator
+  query: file:b.txt
+  description: Contains file b.txt
+- name: netbios locator
+  query: netbios:INTERNAL
+  description: Netbios is INTERNAL
