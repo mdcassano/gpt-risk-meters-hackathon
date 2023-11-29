@@ -48,6 +48,7 @@ class Chat:
 
         response = self.client.chat.completions.create(
             model="hack-gpt-4",
+            temperature=0,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": self.query}
