@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ed8208fb051b09b09a1db8edc602e61273d13e1a7f0baa1c42d5540268a540d8"
+            "sha256": "436389dacf4afa0a1a0b42aeb45b23496ca3d7a90ea0b0d91e456836ce8e4d8f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -179,6 +179,14 @@
             "markers": "python_version >= '3.7'",
             "version": "==2.0.0"
         },
+        "luqum": {
+            "hashes": [
+                "sha256:1af57bc37637014460858a2ae4737760015ed0b9d8b23d61f198de4736c174f5",
+                "sha256:bf0ac6eb3ca8a6a579ff6dd4bd9d88fbba5d9f559b4f5d864f99c4a6b5061853"
+            ],
+            "index": "pypi",
+            "version": "==0.13.0"
+        },
         "mypy-extensions": {
             "hashes": [
                 "sha256:4392f6c0eb8a5668a69e23d168ffa70f0be9ccfd32b5cc2d26a34ae5b844552d",
@@ -227,6 +235,13 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==1.3.0"
+        },
+        "ply": {
+            "hashes": [
+                "sha256:00c7c1aaa88358b9c765b6d3000c6eec0ba42abca5351b095321aef446081da3",
+                "sha256:096f9b8350b65ebd2fd1346b12452efe5b9607f7482813ffca50c22722a807ce"
+            ],
+            "version": "==3.11"
         },
         "pydantic": {
             "hashes": [

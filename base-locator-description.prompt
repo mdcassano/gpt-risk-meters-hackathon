@@ -1,9 +1,9 @@
 I am describing a system that builds Risk Meters.  Risk Meters can be thought of as saved searches of assets.  Assets have locators.  Locators are attributes of assets that users use to identify an asset.  Thus, a risk meter is a set of assets and the risk meter is defined by a query syntax that searches through all asset’s locators. 
 
-For instance, one locator is named “application” whose value is a string.  If I use the query syntax “application:’Test App’” then all assets with their application value set to ‘Test App’ will be returned.  And if I save that syntax as a Risk Meter then that Risk Meter will always return the assets who have a locator named “application” where the value is ‘Test App’.
+For instance, one locator is named “application” whose value is a string.  The query syntax `application:Test` defines a Risk Meter containing all the assets that have a locator named "application" where the value is "Test".
 
-# Syntax rules
-That syntax conforms to Apache Lucene Query Parser Syntax rules as can be found at https://lucene.apache.org/core/2_9_4/queryparsersyntax.html. A query is broken up into terms and operators. A term is comprised of a locator before a colon and a value after the colon. An example of a basic query syntax using two terms joined with an AND operator is `locator:value AND another_locator:"multi-word value"`.
+# Risk Meter syntax rules
+Risk Meter syntax conforms to Apache Lucene Query Parser Syntax rules as can be found at https://lucene.apache.org/core/2_9_4/queryparsersyntax.html. A query is broken up into terms and operators. A term is comprised of a locator before a colon and a value after the colon. An example of a basic query syntax using two terms joined with an AND operator is `locator:value AND another_locator:"multi-word value"`.
 
 Values can be a Single Term or a Phrase.  A Single Term is a word or words containing no whitespace such as test, TestApp, or main.js. Since a Single Term does not contain spaces, it does not need to be surrounded by quotes.  A Phrase is a group of words surrounded by double quotes such as "hello dolly". Therefore, if I provide a description that includes a Single Term like `A file called "test.js"`, you do not need to wrap it in quotes for the query syntax. The correct syntax would be `file:test.js`. However, if I provide a Phrase in my description, you would need to use double quotes like `application:"Test app"`. Do not use single quotes to surround a Phrase.
 
@@ -11,19 +11,15 @@ Boolean operators allow terms to be combined through logic operators. Lucene sup
 
 The OR operator is the default conjunction operator. OR operator can not be used with different locators. This means that if there is no Boolean operator between two terms, the OR operator is used. The OR operator links two terms and finds a matching document if either of the terms exist in a document. This is equivalent to a union using sets. The symbol || can be used in place of the word OR.
 
-Syntax for multiple locators should not be using any brackets. Multiple locators can not be used in an OR operator.
-For example, getting all assets with application as "Foo" or file being "a.txt" is not allowed.
-Another example that would be a valid search will be trying to find application being either "Foo" or "Bar".
-
 The IP range syntax must use "TO" in between and be within square brackets.
 
 The OR operator should use brackets to combine terms and abstract out the locator itself.
 For example, if you are searching for hostname locator being "A.com" or "B.com", the returned query should be hostname:(A.com OR B.com), the query hostname:A.com OR hostname:B.com is not a valid query.
 
 # Supported locators
-Now that you understand the structure, now imagine you have multiple locators, all from a set of pre-defined names.  I will provide all of the supported locators in the markdown table below:
+Now that you understand the structure, imagine you have multiple locators, all from a set of pre-defined names.  I will provide all of the supported locators in the markdown table below:
 
-|    Locator Name    |           Example             | Description                                         |
+|    Locator Name    |           Example             | Description of Locator                              |
 |:------------------:|:-----------------------------:|-----------------------------------------------------|
 | asset_id           | asset_id:12345                | Search for an asset by ID.                          |
 | file               | file:project/dev/file.js      | Search for an asset by file locator.                |
@@ -47,4 +43,7 @@ description: Assets running Windows 8 with a priority greater than 5.
 
 query: os:("Red Hat" OR linux) tag:server
 description: Assets running Red Hat or Linux or tagged "server".
+
+query: ip:10.0.0.*
+description: IP address starts with "10.0.0."
 

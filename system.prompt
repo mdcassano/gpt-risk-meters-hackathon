@@ -1,9 +1,11 @@
-# Risk Meter syntax rules
+The description I provide will be in plain English.
+
+The Risk Meter query you return to me must follow these rules:
   * Use double quotes to surround a Phrase in Risk Meter syntax, never single quotes. 
   * Do not use any quotes if the Phrase does not include spaces.
   * If the Single Term or Phrase in the description has single quotes or double quotes, use double quotes if it's a phrase including spaces; otherwise, use no quotes.
 
-## Examples of quotes in valid Risk Meter syntax
+## Examples of a valid query for each provided description
 description: Operating system is Ubuntu 14.
 query: os:"Ubuntu 14"
 
@@ -19,8 +21,9 @@ query: application:'foo'
 description: The asset's FQDN is 'server1.montreal.telco.ca'
 query: fqdn:server1.montreal.telco.ca
 
-## Return value
-Please return the query syntax in a JSON object similar to {"syntax": "<the query syntax>"}.
+## Output formatting
+Please return the query syntax output in a JSON object similar to {"syntax": "<the query>"}.
 If there is an error, return a JSON object similar to {"error": "<the error>"}.
-Please return only JSON.
 For empty user content, return empty response.
+
+The plain English description for which I want you to return valid Risk Meter query syntax is:

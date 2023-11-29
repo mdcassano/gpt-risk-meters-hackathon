@@ -1,7 +1,8 @@
 import pytest
 
-from functools import partial
 from chat import Chat
+from functools import partial
+from luqum.parser import parser
 
 
 def pytest_collect_file(parent, file_path):
@@ -45,7 +46,22 @@ class GenerateQueryTest(pytest.Item):
         self.query = query
 
     def runtest(self):
-        assert self.query == Chat(self.description, prefix="").syntax_output()
+        self.generated_query = Chat(self.description, prefix="").syntax_output()
+        assert parser.parse(self.query) == parser.parse(self.generated_query)
+
+    def repr_failure(self, excinfo):
+        """Called when self.runtest() raises an exception."""
+        if isinstance(excinfo.value, AssertionError):
+            return "\n".join(
+                [
+                    f"Failed to round-trip the generated description:",
+                    f"   -> description input: {self.description!r}",
+                    f"     -> query output: {self.generated_query!r}",
+                    f"   spec failed: {excinfo.value}",
+                ]
+            )
+        else:
+            return super().repr_failure(excinfo)
 
     def reportinfo(self):
         return self.path, 0, self.name
@@ -77,13 +93,13 @@ class DescribeQueryTest(pytest.Item):
 
     def runtest(self):
         self.generated_description = Chat(
-            self.description, prefix="reverse"
+            self.query, prefix="reverse"
         ).description_output()
         self.round_trip_query = Chat(
             self.generated_description, prefix=""
         ).syntax_output()
         if self.generated_description and self.round_trip_query:
-            assert self.query == self.round_trip_query
+            assert parser.parse(self.query) == parser.parse(self.round_trip_query)
         else:
             pytest.skip("No description generated")
 
@@ -103,4 +119,4 @@ class DescribeQueryTest(pytest.Item):
             return super().repr_failure(excinfo)
 
     def reportinfo(self):
-        return self.path, 0, self.name + " (reverse)"
+        return self.path, 0, f"{self.name}-(reverse)"
