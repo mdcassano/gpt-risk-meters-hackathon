@@ -1,14 +1,16 @@
-Using python 3.9.6, install openai
+Using python 3.11.6 and pipenv:
 
 ```
-pip install openai
+brew install pipenv
+pipenv sync
+pipenv shell
 ```
 
-Set your environment variables
+Set your environment variables in .env
 
 ```
-export AZURE_OPENAI_KEY=<MIKE HAS THE KEY>
-export AZURE_OPENAI_ENDPOINT=https://cloudsec-hackathon-apim.azure-api.net/
+cat "AZURE_OPENAI_KEY=<MIKE HAS THE KEY>" > .env
+cat "AZURE_OPENAI_ENDPOINT=https://cloudsec-hackathon-apim.azure-api.net/" >> .env
 ```
 
 Using the text in system.prompt and user.prompt, run the chat completion:
