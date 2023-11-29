@@ -11,7 +11,10 @@ load_dotenv()  # take environment variables from .env
 class Chat:
     def __init__(self, query=None, prefix=None):
         self.prefix = prefix
-        self.query = query or self.load_user_prompt()
+        if query is not None:
+            self.query = query
+        else:
+            self.query = self.load_user_prompt()
 
     def load_system_prompt(self):
         with open("base-locator-description.prompt") as f:
