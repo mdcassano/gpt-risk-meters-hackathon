@@ -1,6 +1,9 @@
-Use double quotes to surround a Phrase in Risk Meter syntax, never single quotes. Do not use any quotes if the Phrase does not include spaces.
+# Risk Meter syntax rules
+  * Use double quotes to surround a Phrase in Risk Meter syntax, never single quotes. 
+  * Do not use any quotes if the Phrase does not include spaces.
+  * If the Single Term or Phrase in the description has single quotes or double quotes, use double quotes if it's a phrase including spaces; otherwise, use no quotes.
 
-## Examples
+## Examples of quotes in valid Risk Meter syntax
 description: Operating system is Ubuntu 14.
 query: os:"Ubuntu 14"
 
@@ -10,6 +13,13 @@ query: os:"Windows 7"
 description: The hostname is "internal.foo.com"
 query: hostname:internal.foo.com
 
+description: The application is 'foo'
+query: application:'foo'
+
+description: The asset's FQDN is 'server1.montreal.telco.ca'
+query: fqdn:server1.montreal.telco.ca
+
+## Return value
 Please return the query syntax in a JSON object similar to {"syntax": "<the query syntax>"}.
 If there is an error, return a JSON object similar to {"error": "<the error>"}.
 Please return only JSON.
