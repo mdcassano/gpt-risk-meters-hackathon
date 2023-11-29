@@ -7,18 +7,22 @@ from dotenv import load_dotenv
 
 load_dotenv()  # take environment variables from .env
 
+
 class Chat:
     def __init__(self, query=None, prefix=None):
         self.prefix = prefix
-        self.query = query or self.load_user_prompt()
+        if query is not None:
+            self.query = query
+        else:
+            self.query = self.load_user_prompt()
 
     def load_system_prompt(self):
         with open("base-locator-description.prompt") as f:
             base_prompt = f.read()
-        
+
         with open("%ssystem.prompt" % self.prompt_prefix) as f:
             system_prompt = f.read()
-        
+
         return base_prompt + "\n\n" + system_prompt
 
     def load_user_prompt(self):
@@ -38,9 +42,9 @@ class Chat:
     @property
     def client(self):
         return AzureOpenAI(
-            azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT"), 
-            api_key=os.getenv("AZURE_OPENAI_KEY"),  
-            api_version="2023-05-15" # TODO: is this a good date?
+            azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
+            api_key=os.getenv("AZURE_OPENAI_KEY"),
+            api_version="2023-05-15",  # TODO: is this a good date?
         )
 
     def response(self):
@@ -51,11 +55,11 @@ class Chat:
             temperature=0,
             messages=[
                 {"role": "system", "content": system_prompt},
-                {"role": "user", "content": self.query}
-            ]
+                {"role": "user", "content": self.query},
+            ],
         )
         return response.choices[0].message.content
-    
+
     def syntax_output(self):
         response = json.loads(self.response())
         try:

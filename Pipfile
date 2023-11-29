@@ -10,6 +10,7 @@ uvicorn = {extras = ["standard"], version = "*"}
 pytest = "*"
 python-dotenv = "*"
 pytest-xdist = "*"
+black = "*"
 
 [dev-packages]
 
