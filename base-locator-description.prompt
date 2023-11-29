@@ -34,6 +34,7 @@ Now that you understand the structure, now imagine you have multiple locators, a
 | mac_address        | mac_address:4a:03:4c:73:12:96 | Search for an asset by physical MAC address.        |
 | netbios            | netbios:INTERNAL              | Search for an asset by netbios name.                |
 | os                 | os:Linux                      | Search for an asset by operating system.            |
+| url                | url:https://a.com             | Search for an asset by URL.                         | 
 
 # Examples
 

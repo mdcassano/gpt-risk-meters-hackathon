@@ -1,6 +1,4 @@
-import os
 import json
-from openai import AzureOpenAI
 from fastapi import FastAPI
 from chat import Chat
 from fastapi.middleware.cors import CORSMiddleware
@@ -10,7 +8,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['https://testkenna.kdev.docker'],
+    allow_origins=["https://testkenna.kdev.docker"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

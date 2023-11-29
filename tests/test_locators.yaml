@@ -4,6 +4,9 @@
 - name: application locator
   query: application:TestApp
   description: Application called TestApp.
+- name: url locator
+  query: url:http://a.com
+  description: URL is http://a.com
 - name: file locator
   query: file:project/dev/file.js
   description: Asset with a file locator of project/dev/file.js.
