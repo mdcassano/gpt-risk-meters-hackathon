@@ -27,10 +27,10 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pipenv
-        if [ -f Pipfile ]; then pipenv sync; fi
+        if [ -f Pipfile ]; then pipenv install --dev; fi
     - name: Lint with black
       run: |
-        black --check .
+        pipenv run black --check .
     - name: Test with pytest
       run: |
-        pytest -n auto
+        pipenv run pytest -n auto
