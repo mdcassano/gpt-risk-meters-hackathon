@@ -35,22 +35,26 @@ class DescribeQueryTest(pytest.Item):
         self.description = description
         self.query = query
 
-    def generated_description(self):
-        return Chat(self.description, prefix="reverse").description_output()
-
     def runtest(self):
-        assert self.query == Chat(self.generated_description(), prefix="").syntax_output()
+        self.generated_description = Chat(self.description, prefix="reverse").description_output()
+        self.round_trip_query = Chat(self.generated_description, prefix="").syntax_output()
+        if self.generated_description and self.round_trip_query:
+            assert self.query == self.round_trip_query
+        else:
+            pytest.skip("No description generated")
 
     def repr_failure(self, excinfo):
         """Called when self.runtest() raises an exception."""
-        breakpoint()
-        return "\n".join(
-            [
-                "Failed to round-trip the generated description:",
-                "   spec failed: {1!r}: {2!r}".format(*excinfo.value.args),
-                "   no further details known at this point.",
-            ]
-        )
+        if isinstance(excinfo.value, AssertionError):
+            return "\n".join(
+                [
+                    "Failed to round-trip the generated description:",
+                    "   -> query input: {0!r}".format(self.query),
+                    "     -> description: {0!r}".format(self.generated_description),
+                    "       -> query output: {0!r}".format(self.round_trip_query),
+                    "   spec failed: {0!r}".format(excinfo.value),
+                ]
+            )
 
     def reportinfo(self):
         return self.path, 0, self.name

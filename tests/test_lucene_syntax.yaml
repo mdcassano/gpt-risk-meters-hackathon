@@ -1,0 +1,6 @@
+- name: single term
+  query: application:foo
+  description: An application of "foo"
+- name: phrase
+  query: application:"foo bar"
+  description: An application of "foo bar"
