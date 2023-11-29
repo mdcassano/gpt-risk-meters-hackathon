@@ -1,6 +1,11 @@
+import json
 import os
 import sys
 from openai import AzureOpenAI
+from openai._exceptions import OpenAIError
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env
 
 class Chat:
     def __init__(self, query=None, prefix=None):
@@ -43,12 +48,27 @@ class Chat:
 
         response = self.client.chat.completions.create(
             model="hack-gpt-4",
+            temperature=0,
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": self.query}
             ]
         )
         return response.choices[0].message.content
+    
+    def syntax_output(self):
+        response = json.loads(self.response())
+        try:
+            return response["syntax"]
+        except KeyError:
+            raise OpenAIError(response["error"])
+
+    def description_output(self):
+        response = json.loads(self.response())
+        try:
+            return response["description"]
+        except KeyError:
+            raise OpenAIError(response["error"])
 
 
 if __name__ == "__main__":
