@@ -1,0 +1,6 @@
+- name: asset_id locator
+  query: asset_id:12345
+  description: Asset with ID 12345
+- name: application locator
+  query: application:TestApp
+  description: Application called "TestApp"

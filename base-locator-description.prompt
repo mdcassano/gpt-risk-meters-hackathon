@@ -1,16 +1,25 @@
-I am describing a system that builds Risk Meters.  Risk Meters can be thought of as saved searches of assets.  Assets have locators.  Locators are attributes of assets that users use to identify an asset.  Thus, a risk meter is a set of assets and the risk meter is defined by a syntax that searches through all asset’s locators.  For instance, one locator is named “application” who’s value is a string.  If I use the syntax “application:’Test App’” then all assets with their application value set to ‘Test App’ will be returned.  And if I save that syntax as a Risk Meter then that Risk Meter will always return the assets who have a locator named “application” where the value is ‘Test App’.
+I am describing a system that builds Risk Meters.  Risk Meters can be thought of as saved searches of assets.  Assets have locators.  Locators are attributes of assets that users use to identify an asset.  Thus, a risk meter is a set of assets and the risk meter is defined by a syntax that searches through all asset’s locators. 
 
+For instance, one locator is named “application” whose value is a string.  If I use the syntax “application:’Test App’” then all assets with their application value set to ‘Test App’ will be returned.  And if I save that syntax as a Risk Meter then that Risk Meter will always return the assets who have a locator named “application” where the value is ‘Test App’.
+
+# Syntax rules
+That syntax conforms to Apache Lucene Query Parser Syntax rules. A query is broken up into terms and operators. There are two types of terms: Single Terms and Phrases.  A Single Term is a single word such as "test" or "hello". Since a single word does not contain spaces, it does not need to be surrounded by quotes.  A Phrase is a group of words surrounded by double quotes such as "hello dolly". Therefore, if I provide a quoted term that is one word like `Application called "Test"`, you do not need to wrap it in quotes. The correct syntax would be `application:Test`. However, if I provide a multi-word application, you would need to use double quotes like `application:"Test app"`. Do not use single quotes.
+
+Boolean operators allow terms to be combined through logic operators. Lucene supports AND, "+", OR, NOT and "-" as Boolean operators(Note: Boolean operators must be ALL CAPS).
+
+The OR operator is the default conjunction operator. This means that if there is no Boolean operator between two terms, the OR operator is used. The OR operator links two terms and finds a matching document if either of the terms exist in a document. This is equivalent to a union using sets. The symbol || can be used in place of the word OR.
+
+# Examples
 Now that you understand the structure, now imagine you have multiple locators, all from a set of pre-defined names.  I will provide all of the supported locators in the markdown table below:
 
 |    Locator Name    |           Example           | Description                                         |
 |:------------------:|:---------------------------:|-----------------------------------------------------|
 | asset_id           | asset_id:12345              | Search for an asset by ID.                          |
-| file               | file:"project/dev/file.js"  | Search for an asset by file locator.                |
-| application        | application:"TestApp"       | Search for an asset by application locator value.   |
-| fqdn               | fqdn:"internal.foo.com"     | Search for an asset by fully-qualified domain name. |
-| hostname           | hostname:"internal.foo.com" | Search for an asset by hostname.                    |
+| file               | file:project/dev/file.js    | Search for an asset by file locator.                |
+| application        | application:TestApp         | Search for an asset by application locator value.   |
+| fqdn               | fqdn:internal.foo.com       | Search for an asset by fully-qualified domain name. |
+| hostname           | hostname:internal.foo.com   | Search for an asset by hostname.                    |
 | ip                 | ip:10.172.15.5              | Search for an individual IP.                        |
   
-Locators can be combined in a basic "AND" and "OR" syntax.
 Syntax for multiple locators should not be using any brackets.
 The IP range syntax must use "TO" in between and be within square brackets.
