@@ -16,7 +16,7 @@ In addition to making it easier to create asset searches.  We have leveraged our
 
 - Paste in a difficult syntax
 
-We created this capability by explaining our product in a robust prompt for use in GPT-4.  We then built a microservice that makes synchronous calls to Azure's OpenAI API.  We then wired the new microservice into the user interface of our existing web system.  We built a testing harness to ensure that tweaks make to the AI prompts did not result in breaking changes in the AI responses.
+We created this capability by describing assets searches in a prompt for use in GPT-4.  We then built a microservice that makes synchronous calls to Azure's OpenAI API.  We then wired the new microservice into the user interface of our existing web system.  We built a testing harness to ensure that tweaks make to the AI prompts did not result in breaking changes in the AI responses.
 
 With GPT-4 we were able to rapidly prototype our ideas and spend the majority of our time engineering the user experience and expanding the prompt for our use case.
 
