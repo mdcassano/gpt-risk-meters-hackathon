@@ -1,0 +1,4 @@
+I want you to describe this query, beginning with an imperative: `{}`.
+Please return a JSON object containing the query, any errors, and a description of the query that you could use to regenerate the query.
+
+The JSON object:

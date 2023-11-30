@@ -1,3 +1,0 @@
-I want you to provide me a brief plain English description of the following Risk Meter syntax:
-
-{"syntax": "ip:10.0.0.* AND fqdn:'ABC' AND application:'Foo'"}

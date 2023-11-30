@@ -1,7 +1,0 @@
-I'll provide you with a a Risk Meter query and I want you to provide a plain English description.
-
-Please return the description in a JSON object similar to {"description": "<the description>"}.
-If there is an error, return a JSON object similar to {"error": "<the error>"}.
-Please return only JSON.
-
-The Risk Meter query I want you to interpret is: 

@@ -48,7 +48,6 @@ class Chat:
             messages=messages,
         )
         content = response.choices[0].message.content
-        print(content)
         return content
 
     def query_output(self):

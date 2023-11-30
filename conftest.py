@@ -22,12 +22,12 @@ class YamlFile(pytest.File):
                     description=spec["description"],
                     query=spec["query"],
                 )
-                # yield DescribeQueryTest.from_parent(
-                #     self,
-                #     name=spec["name"],
-                #     description=spec["description"],
-                #     query=spec["query"],
-                # )
+                yield DescribeQueryTest.from_parent(
+                    self,
+                    name=spec["name"],
+                    description=spec["description"],
+                    query=spec["query"],
+                )
             else:
                 yield ErrorQueryTest.from_parent(
                     self,
