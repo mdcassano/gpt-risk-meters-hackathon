@@ -13,8 +13,8 @@ pipenv shell
 Set your environment variables in .env
 
 ```
-cat "AZURE_OPENAI_KEY=<MIKE HAS THE KEY>" > .env
-cat "AZURE_OPENAI_ENDPOINT=https://cloudsec-hackathon-apim.azure-api.net/" >> .env
+echo "AZURE_OPENAI_KEY=<MIKE HAS THE KEY>" > .env
+echo "AZURE_OPENAI_ENDPOINT=https://cloudsec-hackathon-apim.azure-api.net/" >> .env
 ```
 
 ## CLI
