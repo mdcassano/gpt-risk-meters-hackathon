@@ -2,7 +2,7 @@ Hello, this is the demo submission for team "Where we are going, we need AI".
 
 The team consists of Michael Cassano, Ahbishek Ahbishek, Jason Garber and Vladimir Maslo.
 
-We integrated GPT-4 into Cisco Vulnerability Management to simplify how users create and explain asset searches.  This leads to a better user experience and transforms sales demos into an impressive displays of innovation.
+We integrated GPT-4 into Cisco Vulnerability Management to simplify how users create and explain asset searches.  This leads to a better user experience and transforms sales demos into impressive displays of innovation.
 
 Let me show you how it works.
 
