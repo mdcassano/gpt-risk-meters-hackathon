@@ -6,6 +6,8 @@ We integrated GPT-4 into Cisco Vulnerability Management to simplify how users cr
 
 Let me show you how it works.
 
+- Load up the Explore screen
+
 This is the Explore screen of our product, customers use it to construct and save groups of assets called asset searches.  For new users, creating an asset search is problematic due to the difficult syntax.  Our improvement solves this.
 
 - Show the plain english to syntax
