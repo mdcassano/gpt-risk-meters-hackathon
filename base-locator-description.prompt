@@ -1,11 +1,22 @@
-I am describing a system that builds Risk Meters.  Risk Meters can be thought of as saved searches of assets.  Assets have locators.  Locators are attributes of assets that users use to identify an asset.  Thus, a risk meter is a set of assets and the risk meter is defined by a query syntax that searches through all asset’s locators. 
+I am describing a system that builds Asset Searches.  Asset Searches can be thought of as saved searches of assets.  Assets have locators.  Locators are attributes of assets that users use to identify an asset.  Thus, an Asset Search is a set of assets and the Asset Search is defined by a query syntax that searches through all asset’s locators.
 
-For instance, one locator is named “application” whose value is a string.  If I use the query syntax “application:’Test App’” then all assets with their application value set to ‘Test App’ will be returned.  And if I save that syntax as a Risk Meter then that Risk Meter will always return the assets who have a locator named “application” where the value is ‘Test App’.
+For instance, one locator is named "application" whose value is a string.  If I use the query syntax `application:"Test App"` then all assets with their application value set to ‘Test App’ will be returned.  And if I save that syntax as an Asset Search then that Asset Search will always return the assets who have a locator named "application" where the value is "Test App".
 
 # Syntax rules
-That syntax conforms to Apache Lucene Query Parser Syntax rules as can be found at https://lucene.apache.org/core/2_9_4/queryparsersyntax.html. A query is broken up into terms and operators. A term is comprised of a locator before a colon and a value after the colon. An example of a basic query syntax using two terms joined with an AND operator is `locator:value AND another_locator:"multi-word value"`.
+That syntax conforms to Apache Lucene Query Parser Syntax rules as can be found at https://lucene.apache.org/core/2_9_4/queryparsersyntax.html. A query is broken up into terms and operators. A term is comprised of a Locator before a colon and a Value after the colon. An example of a basic query syntax using two terms joined with an AND operator is `locator:value AND another_locator:"multi-word value"`.
 
-Values can be a Single Term or a Phrase.  A Single Term is a word or words containing no whitespace such as test, TestApp, or main.js. Since a Single Term does not contain spaces, it does not need to be surrounded by quotes.  A Phrase is a group of words surrounded by double quotes such as "hello dolly". Therefore, if I provide a description that includes a Single Term like `A file called "test.js"`, you do not need to wrap it in quotes for the query syntax. The correct syntax would be `file:test.js`. However, if I provide a Phrase in my description, you would need to use double quotes like `application:"Test app"`. Do not use single quotes to surround a Phrase.
+The Value of a Locator can be a Single Term or a Phrase.  A Single Term is a Value containing no whitespace such as test, TestApp, or main.js. Since a Single Term does not contain spaces, it does not need to be surrounded by double quotes.  A Phrase is a Value surrounded by double quotes such as "hello dolly".
+
+# Rules you must obey
+Always use double quotes around a Phrase, never use single quotes.
+Always leave a Single Term without quotes.
+If quotes are used to describe the Value then those quotes should be removed.
+
+# Examples that demonstrate the rules
+os:"Windows 8"
+os:"Windows Machine"
+os:Windows
+os:WindowsOs
 
 Boolean operators allow terms to be combined through logic operators. Lucene supports AND, "+", OR, NOT and "-" as Boolean operators. (Note: Boolean operators must be ALL CAPS).
 
