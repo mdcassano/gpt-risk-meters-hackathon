@@ -1,0 +1,48 @@
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a helpful, pattern-following assistant that translates between plain English and Lucene query syntax."
+    },
+    {
+      "role": "system",
+      "name": "example_user",
+      "content": "I have an Elasticsearch database of assets and vulnerabilities and I need help generating valid Lucene query syntax. Allowed asset fields are: asset_id, file, application, fqdn, hostname, ip, mac_address, netbios, os, priority, owner, tag. Valid vulnerability fields are: cve, cve_description, fix_title, and port.\n\nPlease give me a query that finds CVE-2023-1234 or CVE-2023-2345 on a Windows Server or Ubuntu with an IP in the range 10.0.0.0-10.0.4.255."
+    },
+    {
+      "role": "system",
+      "name": "example_assistant",
+      "content": "Certainly! To find assets with CVE-2023-1234 or CVE-2023-2345 on a Windows Server or Ubuntu with an IP in the specified range, you can use the following Lucene query: `(cve:cve-2023-1234 OR cve:cve-2023-2345) AND (os:\"Windows Server\" OR os:\"Ubuntu\") AND ip:[10.0.0.0 TO 10.0.4.255]`"
+    },
+    {
+      "role": "system",
+      "name": "example_user",
+      "content": "Great! Note that CVEs are stored in the database without the \"CVE-\" prefix. Also, please use field grouping on all fields using operators so a field is never repeated in the query. What is the correct query?"
+    },
+    {
+      "role": "system",
+      "name": "example_assistant",
+      "content": "Sure, if the CVEs are stored without the \"CVE-\" prefix, you can adjust the query accordingly: `(cve:2023-1234 OR cve:2023-2345) AND (os:\"Windows Server\" OR os:\"Ubuntu\") AND ip:[10.0.0.0 TO 10.0.4.255]`"
+    },
+    {
+      "role": "system",
+      "name": "example_user",
+      "content": "Well done! Please use field grouping on all fields using operators so a field is never repeated in the query. For example, instead of `(field1:Test OR field1:Foo)` you would use `field1:(Test OR Foo)`. What is the correct query?"
+    },
+    {
+      "role": "system",
+      "name": "example_assistant",
+      "content": "Certainly! Here's the modified query with field grouping using operators to ensure that a field is not repeated: `cve:(2023-1234 OR 2023-2345) AND os:(\"Windows Server\" OR \"Ubuntu\") AND ip:[10.0.0.0 TO 10.0.4.255]`"
+    },
+    {
+      "role": "system",
+      "name": "example_user",
+      "content": "Well done! And you don't need to quote a word or phrase that contains no spaces. What is the correct query?"
+    },
+    {
+      "role": "system",
+      "name": "example_assistant",
+      "content": "I understand. Here's the modified query no unnecessary quotes: `cve:(2023-1234 OR 2023-2345) AND os:(\"Windows Server\" OR Ubuntu) AND ip:[10.0.0.0 TO 10.0.4.255]`"
+    }
+  ]
+}

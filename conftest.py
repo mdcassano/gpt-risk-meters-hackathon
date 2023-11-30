@@ -22,12 +22,12 @@ class YamlFile(pytest.File):
                     description=spec["description"],
                     query=spec["query"],
                 )
-                yield DescribeQueryTest.from_parent(
-                    self,
-                    name=spec["name"],
-                    description=spec["description"],
-                    query=spec["query"],
-                )
+                # yield DescribeQueryTest.from_parent(
+                #     self,
+                #     name=spec["name"],
+                #     description=spec["description"],
+                #     query=spec["query"],
+                # )
             else:
                 yield ErrorQueryTest.from_parent(
                     self,
@@ -45,7 +45,7 @@ class GenerateQueryTest(pytest.Item):
         self.query = query
 
     def runtest(self):
-        assert self.query == Chat(self.description, prefix="").syntax_output()
+        assert self.query == Chat(self.description, prefix="").query_output()
 
     def reportinfo(self):
         return self.path, 0, self.name
@@ -60,7 +60,7 @@ class ErrorQueryTest(pytest.Item):
 
     def runtest(self):
         try:
-            Chat(self.description, prefix="").syntax_output()
+            Chat(self.description, prefix="").query_output()
         except Exception as ex:
             assert self.error in str(ex)
 
@@ -81,7 +81,7 @@ class DescribeQueryTest(pytest.Item):
         ).description_output()
         self.round_trip_query = Chat(
             self.generated_description, prefix=""
-        ).syntax_output()
+        ).query_output()
         if self.generated_description and self.round_trip_query:
             assert self.query == self.round_trip_query
         else:

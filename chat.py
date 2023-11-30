@@ -14,21 +14,21 @@ class Chat:
         if query is not None:
             self.query = query
         else:
-            self.query = self.load_user_prompt()
+            self.query = self.load_query()
 
-    def load_system_prompt(self):
-        with open("base-locator-description.prompt") as f:
-            base_prompt = f.read()
+    def load_system_messages(self):
+        with open("prompts/main.json") as f:
+            return json.load(f)["messages"]
 
-        with open("%ssystem.prompt" % self.prompt_prefix) as f:
-            system_prompt = f.read()
-
-        return base_prompt + "\n\n" + system_prompt
-
-    def load_user_prompt(self):
-        with open("%suser.prompt" % self.prompt_prefix) as f:
+    def load_query(self):
+        with open("%squery.txt" % self.prompt_prefix) as f:
             user_prompt = f.read()
         return user_prompt
+
+    def load_user_message(self):
+        with open("prompts/%suser.txt" % self.prompt_prefix) as f:
+            user_prompt = f.read()
+        return {"role": "user", "content": user_prompt.format(self.query)}
 
     @property
     def prompt_prefix(self):
@@ -48,22 +48,22 @@ class Chat:
         )
 
     def response(self):
-        system_prompt = self.load_system_prompt()
+        messages = self.load_system_messages()
+        messages.append(self.load_user_message())
 
         response = self.client.chat.completions.create(
-            model="hack-gpt-4",
+            model="hack-gpt-35",
             temperature=0,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": self.query},
-            ],
+            messages=messages,
         )
-        return response.choices[0].message.content
+        content = response.choices[0].message.content
+        print(content)
+        return content
 
-    def syntax_output(self):
+    def query_output(self):
         response = json.loads(self.response())
         try:
-            return response["syntax"]
+            return response["query"]
         except KeyError:
             raise OpenAIError(response["error"])
 
