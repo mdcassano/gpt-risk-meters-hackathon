@@ -45,7 +45,7 @@ class GenerateQueryTest(pytest.Item):
         self.query = query
 
     def runtest(self):
-        assert self.query == Chat(self.description, prefix="").query_output()
+        assert self.query == Chat(self.description).query_output()
 
     def reportinfo(self):
         return self.path, 0, self.name
@@ -60,7 +60,7 @@ class ErrorQueryTest(pytest.Item):
 
     def runtest(self):
         try:
-            Chat(self.description, prefix="").query_output()
+            Chat(self.description).query_output()
         except Exception as ex:
             assert self.error in str(ex)
 
@@ -77,10 +77,10 @@ class DescribeQueryTest(pytest.Item):
 
     def runtest(self):
         self.generated_description = Chat(
-            self.description, prefix="reverse"
+            self.description, prompt="reverse"
         ).description_output()
         self.round_trip_query = Chat(
-            self.generated_description, prefix=""
+            self.generated_description
         ).query_output()
         if self.generated_description and self.round_trip_query:
             assert self.query == self.round_trip_query

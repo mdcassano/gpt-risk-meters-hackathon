@@ -22,5 +22,5 @@ def read_root():
 
 @app.get("/prompt")
 def read_item(q: str, direction: str = ""):
-    chat = Chat(query=q, prefix=direction)
+    chat = Chat(query=q, prompt=direction)
     return json.loads(chat.response())

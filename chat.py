@@ -9,35 +9,26 @@ load_dotenv()  # take environment variables from .env
 
 
 class Chat:
-    def __init__(self, query=None, prefix=None):
-        self.prefix = prefix
+    def __init__(self, query=None, prompt="main"):
+        self.prompt = prompt
         if query is not None:
             self.query = query
         else:
             self.query = self.load_query()
 
     def load_system_messages(self):
-        with open("prompts/main.json") as f:
+        with open("prompts/%s-system.json" % self.prompt) as f:
             return json.load(f)["messages"]
 
     def load_query(self):
-        with open("%squery.txt" % self.prompt_prefix) as f:
+        with open("%s-query.txt" % self.prompt) as f:
             user_prompt = f.read()
         return user_prompt
 
     def load_user_message(self):
-        with open("prompts/%suser.txt" % self.prompt_prefix) as f:
+        with open("prompts/%s-user.txt" % self.prompt) as f:
             user_prompt = f.read()
         return {"role": "user", "content": user_prompt.format(self.query)}
-
-    @property
-    def prompt_prefix(self):
-        if self.prefix:
-            return self.prefix + "-"
-        elif self.prefix == None and len(sys.argv) > 1:
-            return sys.argv[1] + "-"
-        else:
-            return ""
 
     @property
     def client(self):
@@ -76,5 +67,6 @@ class Chat:
 
 
 if __name__ == "__main__":
-    chat = Chat()
+    prompt = sys.argv[1] if len(sys.argv) > 1 else "main"
+    chat = Chat(prompt=prompt)
     print(chat.response())
