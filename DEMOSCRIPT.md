@@ -1,19 +1,25 @@
-This is the script we will follow when recording the demo for the hackathon:
+Hello, this is the demo submission for team "Where we are going, we need AI".
 
-* Load the VM Explore screen containing the new openai enhanced creation ability
+The team consists of Michael Cassano, Ahbishek Ahbishek, Jason Garber and Vladimir Maslo.
 
-This is the Cisco Vulnerability Management, CVM, Explore screen.  Our users spend a lot of time on this screen and this is what we have improved with OpenAI for this hackathon.  Our team is the "Where we are going, we need AI" team, and it consists of Michael Cassano, Jason Garber, Abhishek Abhishek and Vladimir Maslo.  Our software works by grouping endpoints into Risk meters, we then show how much vulnerability risk is in each Risk meter.  But first customers need to define a risk meter and it can be a little awkward for them to learn our highly technical syntax and it often involves trial and error that can be frustrating.
+We integrated GPT-4 into Cisco Vulnerability Management to simplify how users create and explain asset searches.  This leads to a better user experience and transforms sales demos into an impressive displays of innovation.
 
-With OpenAI we used a GPT model to help our users get started with plain english.  Let me show you.
+Let me show you how it works.
 
-* Open the risk meter creation box
-* Type out some plain english
-* Get the syntax
-* Save the meter
+This is the Explore screen of our product, customers use it to construct and save groups of assets called asset searches.  For new users, creating an asset search is problematic due to the difficult syntax.  Our improvement solves this.
 
-We now have a risk meter with valid syntax starting with plain english.  Users can either save this and be done or they have a starting place to improve their search.  This is a big improvement.  We accomplished this by crafting a prompt focused on our business terms which we built into a backend service in python.   We then built that backend service into the UI as you just saw.
+- Show the plain english to syntax
 
-* Show the repo, show the prompt
+In addition to making it easier to create asset searches.  We have leveraged our prompting to offer plain english explanations of existing asset searches.  Users can now revisit existing syntax and have it explained to them in plain english instead of having to comb through the technicalities.
 
-Thank you for watching our hackathon demo, please reach out to us if you have any questions.
+- Paste in a difficult syntax
 
+We created this capability by explaining our product in a robust prompt for use in GPT-4.  We then built a microservice that makes synchronous calls to Azure's OpenAI API.  We then wired the new microservice into the user interface of our existing web system.  We built a testing harness to ensure that tweaks make to the AI prompts did not result in breaking changes in the AI responses.
+
+With GPT-4 we were able to rapidly prototype our ideas and spend the majority of our time engineering the user experience and expanding the prompt for our use case.
+
+- Show the Github link and the base prompt
+
+We can provide access to the Github repository where all the technical details can be found.
+
+Thank you for watching our demo submission.
