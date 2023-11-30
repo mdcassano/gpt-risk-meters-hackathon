@@ -37,12 +37,12 @@
     {
       "role": "system",
       "name": "example_user",
-      "content": "Well done! And you don't need to quote a word or phrase that contains no spaces. What is the correct query?"
+      "content": "Well done! And you don't need to quote a word or phrase that contains no spaces. Correct examples include: `field:foo.bar.com` and `field:an-example-no.spaces`. Incorrect examples: `field:\"foo.bar.com\"` and `field:\"an-example-no.spaces\"`. Now what is the correct query?"
     },
     {
       "role": "system",
       "name": "example_assistant",
-      "content": "I understand. Here's the modified query no unnecessary quotes: `cve:(2023-1234 OR 2023-2345) AND os:(\"Windows Server\" OR Ubuntu) AND ip:[10.0.0.0 TO 10.0.4.255]`"
+      "content": "I understand. Here's the modified query with no unnecessary quotes: `cve:(2023-1234 OR 2023-2345) AND os:(\"Windows Server\" OR Ubuntu) AND ip:[10.0.0.0 TO 10.0.4.255]`"
     }
   ]
 }
